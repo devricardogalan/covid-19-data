@@ -6,7 +6,8 @@ class App extends Component {
 
   state = {
     loading: true,
-    CovidData:null
+    CovidData:null,
+    Countries:null
   }
 
   async componentDidMount() {
@@ -15,15 +16,21 @@ class App extends Component {
     const data= await response.json();
     if(data){
       this.setState({CovidData: data});
+    }
+    const urlcountries='https://corona.lmao.ninja/countries';
+    const responsecountries= await fetch(urlcountries);
+    const datacountries= await responsecountries.json();
+    this.setState({Countries: datacountries})
+    if(datacountries){
       this.setState({loading:false});
     }
-    console.log(this.state.CovidData);
   }
   
   render() {
     return (
       <div >
-        <Layout>
+        {this.state.Countries ? 
+        <Layout suggestions={this.state.Countries}>
         {
           this.state.loading ? 
           <div> loading ... </div> : 
@@ -36,6 +43,7 @@ class App extends Component {
           <CovidData covidData={this.state.CovidData} />
         }
         </Layout>
+         : <div>loading...</div>}
       </div>
     );
   }
