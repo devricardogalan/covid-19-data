@@ -1,0 +1,5 @@
+.bannerbackground{
+    background-image: url("https://eac.int/images/COVID-19/coronavirus-banner.jpg");
+    height: 300px;
+    background-size: cover;
+}
